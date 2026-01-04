@@ -1,6 +1,7 @@
 export { Loading } from './Loading';
 export { ErrorMessage } from './ErrorMessage';
 export { Modal } from './Modal';
+export { ThemeToggle } from './ThemeToggle';
 
 // Re-exportar componentes de Shadcn para fácil acceso
 export { Button } from '@/components/ui/button';

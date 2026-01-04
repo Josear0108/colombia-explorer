@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useDepartmentById } from '@/presentation/hooks';
 import { Loading, ErrorMessage } from '@/presentation/components/common';
-import { Building2, Users, Thermometer, MapPin, Share2, Info, X, Copy, Check } from 'lucide-react';
+import { Building2, Users, Thermometer, MapPin, Share2, Info, X, Copy, Check, Eye } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 interface DepartmentBottomSheetProps {
@@ -186,38 +186,38 @@ export const DepartmentBottomSheet = ({
 
   return (
     <>
-      {/* Modal - Bottom sheet en móvil, panel lateral flotante en desktop */}
+      {/* Modal - Bottom sheet flotante en móvil, panel lateral en desktop */}
       <div
-        className={`fixed z-50 bg-gray-50 dark:bg-dark-700 shadow-2xl transition-all duration-300 ease-out border border-gray-200 dark:border-gray-600
-          bottom-0 left-0 right-0 rounded-t-3xl max-h-[85vh] overflow-y-auto transform
-          md:bottom-auto md:left-auto md:right-6 md:top-24 md:w-96 md:rounded-2xl md:max-h-[calc(100vh-7rem)]
-          ${isOpen ? 'translate-y-0 md:translate-x-0 md:opacity-100' : 'translate-y-full md:translate-x-[500px] md:opacity-0'}
+        className={`fixed z-50 bg-white dark:bg-dark-700 shadow-2xl transition-all duration-300 ease-out
+          bottom-4 left-4 right-4 rounded-3xl overflow-hidden transform
+          md:bottom-auto md:left-auto md:right-6 md:top-24 md:w-96 md:rounded-2xl
+          ${isOpen ? 'translate-y-0 md:translate-x-0 md:opacity-100' : 'translate-y-[120%] md:translate-x-[500px] md:opacity-0'}
         `}
       >
-        {/* Handle bar - SOLO en móvil */}
-        <div className="md:hidden flex justify-center pt-3 pb-2">
-          <div className="w-12 h-1.5 bg-gray-300 dark:bg-gray-600 rounded-full" />
+        {/* Header con botón cerrar */}
+        <div className="relative flex justify-end items-center pt-2 pb-2 px-5 border-b border-gray-200 dark:border-gray-700">
+          {/* Barrita centrada */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full md:invisible" />
+          {/* Botón cerrar a la derecha */}
+          <button
+            onClick={onClose}
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+            aria-label="Cerrar"
+          >
+            <X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+          </button>
         </div>
 
-        {/* Botón cerrar - SOLO en desktop */}
-        <button
-          onClick={onClose}
-          className="hidden md:block absolute top-4 right-4 p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors z-10"
-          aria-label="Cerrar"
-        >
-          <X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-        </button>
-
-        {/* Content - Altura fija para evitar saltos */}
-        <div className="px-5 pb-6 pt-2 md:pt-6 h-[250px] flex flex-col">
+        {/* Content */}
+        <div className="px-6 pb-6 pt-4 h-[230px] overflow-y-auto">
           {isLoading && (
-            <div className="flex-1 flex items-center justify-center">
+            <div className="flex items-center justify-center h-full">
               <Loading />
             </div>
           )}
 
           {error && (
-            <div className="flex-1 flex items-center justify-center">
+            <div className="flex items-center justify-center h-full">
               <ErrorMessage message="Error al cargar información del departamento" />
             </div>
           )}
@@ -226,9 +226,14 @@ export const DepartmentBottomSheet = ({
             <>
               {/* Header simple */}
               <div className="mb-4">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                  {dept.name}
-                </h2>
+                <div className="flex items-center gap-2 mb-2">
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {dept.name}
+                  </h2>
+                  <div className="p-1 bg-blue-100 dark:bg-blue-900/30 rounded">
+                    <Info className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                  </div>
+                </div>
                 <div className="flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
                   <Building2 className="w-4 h-4" />
                   <span className="text-sm">
@@ -276,7 +281,7 @@ export const DepartmentBottomSheet = ({
                   onClick={handleViewDetails}
                   className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-5 rounded-xl text-base font-semibold transition-colors flex items-center justify-center gap-2"
                 >
-                  <Info className="w-5 h-5" />
+                  <Eye className="w-5 h-5" />
                   Ver detalles
                 </Button>
 

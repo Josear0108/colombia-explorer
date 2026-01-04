@@ -79,9 +79,6 @@ export default function DepartmentsPage() {
 
   return (
     <div className="w-full max-w-full">
-      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 md:mb-8 text-center">
-        Departamentos de Colombia
-      </h1>
 
       <DepartmentMap
         onDepartmentClick={handleDepartmentClick}

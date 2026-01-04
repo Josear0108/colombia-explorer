@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, GeoJSON, Marker, Popup } from 'react-leaflet';
 import { GeoJsonObject } from 'geojson';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 // Fix para los iconos de Leaflet en Vite
 import icon from 'leaflet/dist/images/marker-icon.png';
@@ -28,6 +28,7 @@ interface DepartmentMapProps {
 
 export const DepartmentMap = ({ onDepartmentClick, userLocation }: DepartmentMapProps) => {
   const [colombiaGeoJSON, setColombiaGeoJSON] = useState<GeoJsonObject | null>(null);
+  const selectedLayerRef = useRef<any>(null);
 
   useEffect(() => {
     // Cargar GeoJSON de Colombia
@@ -51,18 +52,41 @@ export const DepartmentMap = ({ onDepartmentClick, userLocation }: DepartmentMap
     // Hover effect
     layer.on({
       mouseover: (e: any) => {
+        // No aplicar hover si es el departamento seleccionado
+        if (selectedLayerRef.current !== e.target) {
+          e.target.setStyle({
+            fillOpacity: 0.8,
+            weight: 3
+          });
+        }
+      },
+      mouseout: (e: any) => {
+        // No resetear hover si es el departamento seleccionado
+        if (selectedLayerRef.current !== e.target) {
+          e.target.setStyle({
+            fillOpacity: 0.5,
+            weight: 2
+          });
+        }
+      },
+      click: (e: any) => {
+        // Resetear el estilo del departamento previamente seleccionado
+        if (selectedLayerRef.current && selectedLayerRef.current !== e.target) {
+          selectedLayerRef.current.setStyle({
+            fillOpacity: 0.5,
+            weight: 2
+          });
+        }
+
+        // Aplicar estilo destacado al nuevo departamento seleccionado
         e.target.setStyle({
           fillOpacity: 0.8,
           weight: 3
         });
-      },
-      mouseout: (e: any) => {
-        e.target.setStyle({
-          fillOpacity: 0.5,
-          weight: 2
-        });
-      },
-      click: () => {
+
+        // Guardar referencia al nuevo layer seleccionado
+        selectedLayerRef.current = e.target;
+
         if (onDepartmentClick) {
           onDepartmentClick(feature.properties.DPTO, departmentName);
         }
@@ -81,10 +105,10 @@ export const DepartmentMap = ({ onDepartmentClick, userLocation }: DepartmentMap
   };
 
   return (
-    <div className="w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] rounded-lg overflow-hidden shadow-lg">
+    <div className="w-full h-screen sm:h-[500px] md:h-[600px] lg:h-[700px] rounded-lg overflow-hidden shadow-lg">
       <MapContainer
         center={[4.5709, -74.2973]} // Centro de Colombia
-        zoom={window.innerWidth < 768 ? 5 : 6} // Zoom menor en móviles
+        zoom={window.innerWidth < 768 ? 6 : 7} // Zoom menor en móviles
         style={{ height: '100%', width: '100%' }}
         scrollWheelZoom={false}
         touchZoom={true}
