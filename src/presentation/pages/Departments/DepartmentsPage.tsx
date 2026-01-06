@@ -78,14 +78,16 @@ export default function DepartmentsPage() {
   }
 
   return (
-    <div className="w-full max-w-full">
+    <div className="-mx-3 sm:-mx-4 md:-mx-8 lg:-mx-16 xl:-mx-40 -my-4 sm:-my-6 md:-my-8 md:flex md:h-[calc(100vh-64px)]">
+      {/* Contenedor del mapa - flex-1 en desktop */}
+      <div className="w-full md:flex-1">
+        <DepartmentMap
+          onDepartmentClick={handleDepartmentClick}
+          userLocation={userDepartment.userLocation}
+        />
+      </div>
 
-      <DepartmentMap
-        onDepartmentClick={handleDepartmentClick}
-        userLocation={userDepartment.userLocation}
-      />
-
-      {/* Bottom Sheet Modal */}
+      {/* Bottom Sheet Modal / Panel lateral */}
       <DepartmentBottomSheet
         departmentId={selectedDepartmentId}
         isOpen={isBottomSheetOpen}

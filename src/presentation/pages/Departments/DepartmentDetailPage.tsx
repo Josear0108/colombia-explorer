@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDepartmentById } from '@/presentation/hooks';
 import { DepartmentCircularMap } from '@/presentation/components/features/departments/DepartmentCircularMap';
-import { ArrowLeft, Star, Users, Mountain, Building2, Info, Map } from 'lucide-react';
+import { Star, Users, Mountain, Building2, Info, Map } from 'lucide-react';
 
 export default function DepartmentDetailPage() {
   const { id } = useParams<{ id: string }>();

@@ -39,7 +39,7 @@ export const DepartmentCircularMap = ({ departmentName }: DepartmentCircularMapP
       });
   }, [departmentName]);
 
-  const onEachDepartment = (feature: any, layer: any) => {
+  const onEachDepartment = (_feature: any, layer: any) => {
     layer.setStyle({
       fillColor: '#3B82F6', // blue-500 - más brillante y visible
       weight: 3,

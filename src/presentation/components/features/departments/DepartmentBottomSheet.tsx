@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useDepartmentById } from '@/presentation/hooks';
 import { Loading, ErrorMessage } from '@/presentation/components/common';
-import { Building2, Users, Thermometer, MapPin, Share2, Info, X, Copy, Check, Eye } from 'lucide-react';
+import { Building2, Share2, Info, X, Copy, Check, Eye } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 interface DepartmentBottomSheetProps {
@@ -182,16 +182,23 @@ export const DepartmentBottomSheet = ({
     return regionTemps[dept.name] || '24°C';
   };
 
-  if (!isOpen || !departmentId) return null;
+  if (!departmentId) return null;
 
   return (
     <>
       {/* Modal - Bottom sheet flotante en móvil, panel lateral en desktop */}
       <div
-        className={`fixed z-50 bg-white dark:bg-dark-700 shadow-2xl transition-all duration-300 ease-out
-          bottom-4 left-4 right-4 rounded-3xl overflow-hidden transform
-          md:bottom-auto md:left-auto md:right-6 md:top-24 md:w-96 md:rounded-2xl
-          ${isOpen ? 'translate-y-0 md:translate-x-0 md:opacity-100' : 'translate-y-[120%] md:translate-x-[500px] md:opacity-0'}
+        className={`
+          bg-white dark:bg-dark-700 transition-all duration-300 ease-out overflow-hidden
+
+          ${isOpen
+            ? 'fixed bottom-4 left-4 right-4 translate-y-0 z-50 shadow-2xl rounded-3xl'
+            : 'fixed bottom-4 left-4 right-4 translate-y-[120%] z-50 shadow-2xl rounded-3xl'
+          }
+
+          md:relative md:h-full md:z-auto md:bottom-auto md:left-auto md:right-auto md:translate-y-0 md:rounded-none md:shadow-none
+          md:border-l md:border-gray-200 md:dark:border-gray-600 md:flex md:flex-col
+          ${isOpen ? 'md:w-96 md:opacity-100' : 'md:w-0 md:opacity-0 md:border-0'}
         `}
       >
         {/* Header con botón cerrar */}
@@ -209,7 +216,7 @@ export const DepartmentBottomSheet = ({
         </div>
 
         {/* Content */}
-        <div className="px-6 pb-6 pt-4 h-[230px] overflow-y-auto">
+        <div className="px-6 pb-6 pt-4 h-[230px] overflow-y-auto md:h-auto md:flex-1 md:p-6">
           {isLoading && (
             <div className="flex items-center justify-center h-full">
               <Loading />

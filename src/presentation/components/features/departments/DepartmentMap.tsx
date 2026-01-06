@@ -105,10 +105,10 @@ export const DepartmentMap = ({ onDepartmentClick, userLocation }: DepartmentMap
   };
 
   return (
-    <div className="w-full h-screen sm:h-[500px] md:h-[600px] lg:h-[700px] rounded-lg overflow-hidden shadow-lg">
+    <div className="w-full h-screen md:h-full rounded-lg md:rounded-none overflow-hidden shadow-lg md:shadow-none">
       <MapContainer
         center={[4.5709, -74.2973]} // Centro de Colombia
-        zoom={window.innerWidth < 768 ? 6 : 7} // Zoom menor en móviles
+        zoom={window.innerWidth < 768 ? 6 : 5} // Zoom menor en móviles
         style={{ height: '100%', width: '100%' }}
         scrollWheelZoom={false}
         touchZoom={true}
