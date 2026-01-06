@@ -4,7 +4,7 @@ import { MobileMenu } from './MobileMenu';
 
 export const Header = () => {
   return (
-    <header className="bg-primary-500 dark:bg-primary-500 shadow-lg border-b-4 border-secondary-500">
+    <header className="sticky top-0 z-50 bg-primary-500 dark:bg-primary-500 shadow-lg border-b-4 border-secondary-500">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-3 transition-opacity">

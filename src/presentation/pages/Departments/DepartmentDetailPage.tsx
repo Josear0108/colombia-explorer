@@ -77,23 +77,7 @@ export default function DepartmentDetailPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-dark-800">
-      {/* Header Sticky - Solo móvil */}
-      <div className="sticky top-0 z-50 bg-white dark:bg-dark-700 border-b border-gray-200 dark:border-gray-700 shadow-sm md:hidden">
-        <div className="flex items-center gap-3 px-4 py-3">
-          <button
-            onClick={() => navigate('/departments')}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
-            aria-label="Volver al mapa"
-          >
-            <Map className="w-5 h-5 text-gray-700 dark:text-gray-300" />
-          </button>
-          <h1 className="text-lg font-semibold text-gray-900 dark:text-white truncate">
-            {department?.name || 'Departamento'}
-          </h1>
-        </div>
-      </div>
-
-      <div className="max-w-2xl mx-auto px-4 py-8 pb-8 md:pb-24">
+      <div className="max-w-2xl mx-auto px-4 py-8 pb-24">
         {/* Mapa Circular */}
         <div className="mb-8">
           <DepartmentCircularMap departmentName={department.name} />
@@ -198,8 +182,8 @@ export default function DepartmentDetailPage() {
         </div>
       </div>
 
-      {/* Botón Flotante - Volver al Mapa (Solo Desktop) */}
-      <div className="hidden md:block fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white dark:from-dark-800 via-white dark:via-dark-800 to-transparent pointer-events-none">
+      {/* Botón Flotante - Volver al Mapa */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white dark:from-dark-800 via-white dark:via-dark-800 to-transparent pointer-events-none">
         <div className="max-w-2xl mx-auto pointer-events-auto">
           <button
             onClick={() => navigate('/departments')}
